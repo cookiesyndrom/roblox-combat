@@ -43,7 +43,7 @@ local hitSoundTemplate = ReplicatedStorage:WaitForChild("Sounds"):WaitForChild("
 
 --[[
 	These live at the top so balancing changes never require hunting through
-	the logic. HEAVY_KB is intentionally 4x LIGHT_KB — the finisher should
+	the logic. HEAVY_KB is intentionally 4x LIGHT_KB so the finisher should
 	feel significantly different from a normal swing. FINISHER_LOCK is synced
 	client-side too so the UI feedback matches the actual lockout window.
 --]]
