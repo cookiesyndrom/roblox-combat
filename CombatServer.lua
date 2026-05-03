@@ -6,10 +6,10 @@
 	This script lives in ServerScriptService and owns all the authoritative
 	combat logic: cooldown gating, hitbox projection, damage, knockback, and
 	the 3-hit finisher system. Keeping everything server-side means clients
-	can never spoof damage or bypass cooldowns — they just fire an event and
+	can never spoof damage or bypass cooldowns so they just fire an event and
 	the server decides what actually happens.
 
-	Architecture overview:
+	Architwcture overview:
 	  Client fires "M1" ? server validates ? casts hitbox ? damages targets
 	  ? fires back "FINISHER_LOCK" or "KNOCKBACK" to affected clients
 
