@@ -1,12 +1,12 @@
 -- Connected Discord-GitHub | Discord: cookiesyndrom | Roblox: 03x408
 
 --[[
-	CombatServer.lua — Server-side M1 combat handler
+	CombatServer.lua â€” Server-side M1 combat handler
 	
 	This script lives in ServerScriptService and owns all the authoritative
 	combat logic: cooldown gating, hitbox projection, damage, knockback, and
 	the 3-hit finisher system. Keeping everything server-side means clients
-	can never spoof damage or bypass cooldowns — they just fire an event and
+	can never spoof damage or bypass cooldowns â€” they just fire an event and
 	the server decides what actually happens.
 
 	Architecture overview:
@@ -43,7 +43,7 @@ local hitSoundTemplate = ReplicatedStorage:WaitForChild("Sounds"):WaitForChild("
 
 --[[
 	These live at the top so balancing changes never require hunting through
-	the logic. HEAVY_KB is intentionally 4x LIGHT_KB — the finisher should
+	the logic. HEAVY_KB is intentionally 4x LIGHT_KB â€” the finisher should
 	feel significantly different from a normal swing. FINISHER_LOCK is synced
 	client-side too so the UI feedback matches the actual lockout window.
 --]]
@@ -111,7 +111,7 @@ end
 
 --[[
 	Advances the combo counter and reschedules the reset timer. The key detail
-	is task.cancel on the previous thread — without this, rapid clicks stack
+	is task.cancel on the previous thread â€” without this, rapid clicks stack
 	up multiple reset timers that fight each other and cause the combo to drop
 	mid-sequence. One active timer per player at all times.
 --]]
@@ -149,7 +149,7 @@ local function projectHitbox(character)
 
 	local boxCFrame = root.CFrame * CFrame.new(0, 0, -HITBOX_REACH)
 
-	-- debug box — set Transparency = 1 when shipping
+	-- debug box â€” set Transparency = 1 when shipping
 	local box        = Instance.new("Part")
 	box.Size         = HITBOX_SIZE
 	box.CFrame       = boxCFrame
@@ -173,7 +173,7 @@ end
 --[[
 	Cloning the template and using task.defer means the sound is fully parented
 	before Play() is called. Without the defer, Play() sometimes fires before
-	the engine registers the new parent and the sound silently does nothing —
+	the engine registers the new parent and the sound silently does nothing â€”
 	this was the original bug causing inconsistent hit audio.
 --]]
 
@@ -226,7 +226,7 @@ end
 --[[
 	We collect unique models first (hitModels guard) so a single swing can't
 	hit the same character twice if multiple of their parts are inside the box.
-	Dead humanoids are skipped — no point damaging a ragdoll, and TakeDamage
+	Dead humanoids are skipped â€” no point damaging a ragdoll, and TakeDamage
 	on Health = 0 can occasionally trigger unexpected Died connections.
 --]]
 
@@ -252,7 +252,7 @@ end
 -- --- Finisher lockout ---------------------------------------------------------
 
 --[[
-	On the 3rd hit we want the attacker briefly stuck in place — this sells
+	On the 3rd hit we want the attacker briefly stuck in place â€” this sells
 	the weight of the finisher animation. We slow WalkSpeed, set locked = true
 	so canAttack() rejects further inputs, and fire the client so their UI
 	and local canM1 flag sync up. The delay restores everything after the
